@@ -1,7 +1,6 @@
 ﻿using System;
-using NServiceBus;
 using System.Threading;
-using System.Xml.Serialization;
+using NServiceBus;
 
 namespace ConsoleTest
 {
@@ -16,7 +15,7 @@ namespace ConsoleTest
                 .UnicastBus()
                     .DoNotAutoSubscribe()
                     .LoadMessageHandlers()
-                .OracleAQSTransport()
+                .OracleAqsTransport()
                     .InputQueue("TEST_Q")
                     .QueueTable("TEST_Q_TAB")
                     .ConnectionString("Data Source=localhost/xe;User Id=hr;Password=hr")

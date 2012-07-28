@@ -1,7 +1,7 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NServiceBus.Unicast.Transport.OracleAQS", "NServiceBus.Unicast.Transport.OracleAQS\NServiceBus.Unicast.Transport.OracleAQS.csproj", "{A514EEA4-D12F-471B-8E6B-538A23CDE7FA}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NServiceBus.Unicast.Queueing.OracleAqs", "NServiceBus.Unicast.Transport.OracleAQS\NServiceBus.Unicast.Queueing.OracleAqs.csproj", "{A514EEA4-D12F-471B-8E6B-538A23CDE7FA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OracleAQS.NServiceBus.TestRunner", "OracleAQS.NServiceBus.TestRunner\OracleAQS.NServiceBus.TestRunner.csproj", "{2763D423-4001-4C6E-A165-9D27280F42EE}"
 EndProject
@@ -18,16 +18,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A514EEA4-D12F-471B-8E6B-538A23CDE7FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A514EEA4-D12F-471B-8E6B-538A23CDE7FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A514EEA4-D12F-471B-8E6B-538A23CDE7FA}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{A514EEA4-D12F-471B-8E6B-538A23CDE7FA}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{A514EEA4-D12F-471B-8E6B-538A23CDE7FA}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{A514EEA4-D12F-471B-8E6B-538A23CDE7FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A514EEA4-D12F-471B-8E6B-538A23CDE7FA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A514EEA4-D12F-471B-8E6B-538A23CDE7FA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{A514EEA4-D12F-471B-8E6B-538A23CDE7FA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{A514EEA4-D12F-471B-8E6B-538A23CDE7FA}.Release|x86.ActiveCfg = Release|Any CPU
 		{2763D423-4001-4C6E-A165-9D27280F42EE}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{2763D423-4001-4C6E-A165-9D27280F42EE}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{2763D423-4001-4C6E-A165-9D27280F42EE}.Debug|Mixed Platforms.Build.0 = Debug|x86
@@ -38,6 +28,16 @@ Global
 		{2763D423-4001-4C6E-A165-9D27280F42EE}.Release|Mixed Platforms.Build.0 = Release|x86
 		{2763D423-4001-4C6E-A165-9D27280F42EE}.Release|x86.ActiveCfg = Release|x86
 		{2763D423-4001-4C6E-A165-9D27280F42EE}.Release|x86.Build.0 = Release|x86
+		{A514EEA4-D12F-471B-8E6B-538A23CDE7FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A514EEA4-D12F-471B-8E6B-538A23CDE7FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A514EEA4-D12F-471B-8E6B-538A23CDE7FA}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{A514EEA4-D12F-471B-8E6B-538A23CDE7FA}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{A514EEA4-D12F-471B-8E6B-538A23CDE7FA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A514EEA4-D12F-471B-8E6B-538A23CDE7FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A514EEA4-D12F-471B-8E6B-538A23CDE7FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A514EEA4-D12F-471B-8E6B-538A23CDE7FA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{A514EEA4-D12F-471B-8E6B-538A23CDE7FA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{A514EEA4-D12F-471B-8E6B-538A23CDE7FA}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -8,8 +8,8 @@
     <ProjectGuid>{A514EEA4-D12F-471B-8E6B-538A23CDE7FA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NServiceBus.Unicast.Transport.OracleAdvancedQueuing</RootNamespace>
-    <AssemblyName>NServiceBus.Unicast.Transport.OracleAQS</AssemblyName>
+    <RootNamespace>NServiceBus.Unicast.Queuing.OracleAdvancedQueuing</RootNamespace>
+    <AssemblyName>NServiceBus.Unicast.Queuing.OracleAQS</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,8 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net">
-      <HintPath>..\..\..\..\lib\log4net\log4net.dll</HintPath>
+    <Reference Include="Common.Logging">
+      <HintPath>..\packages\Common.Logging.2.1.1\lib\net40\Common.Logging.dll</HintPath>
     </Reference>
     <Reference Include="NServiceBus">
       <HintPath>..\..\..\..\lib\nservicebus\net4\NServiceBus.dll</HintPath>
@@ -52,12 +52,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config\ConfigOracleAQSTransport.cs" />
-    <Compile Include="Config\ConfigureOracleAQSTransport.cs" />
-    <Compile Include="Config\OracleAQSTransportConfig.cs" />
-    <Compile Include="OracleAQSTransport.cs" />
-    <Compile Include="OracleTransactionManager.cs" />
+    <Compile Include="Config\ConfigOracleAqsTransport.cs" />
+    <Compile Include="Config\ConfigureOracleAqsTransport.cs" />
+    <Compile Include="Config\OracleAqsTransportConfig.cs" />
+    <Compile Include="OracleAqsMessageReceiver.cs" />
+    <Compile Include="OracleAqsMessageSender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -53,9 +53,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NServiceBus.Unicast.Transport.OracleAQS\NServiceBus.Unicast.Transport.OracleAQS.csproj">
+    <ProjectReference Include="..\NServiceBus.Unicast.Transport.OracleAQS\NServiceBus.Unicast.Queueing.OracleAqs.csproj">
       <Project>{A514EEA4-D12F-471B-8E6B-538A23CDE7FA}</Project>
-      <Name>NServiceBus.Unicast.Transport.OracleAQS</Name>
+      <Name>NServiceBus.Unicast.Queueing.OracleAqs</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

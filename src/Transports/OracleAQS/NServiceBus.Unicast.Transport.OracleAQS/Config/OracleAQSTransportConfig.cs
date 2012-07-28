@@ -1,26 +1,27 @@
-﻿using System;
-using System.Configuration;
-
-namespace NServiceBus.Config
+﻿namespace NServiceBus.Config
 {
+    using System.Configuration;
+
     /// <summary>
-    /// <remarks>Credits goes to everyone who has worked on NSB and Joseph Daigle/Andreas Ohlund
-    /// who created the Service Broker transport this is based off of
-    /// </remarks>
     /// </summary>
-    public class OracleAQSTransportConfig : ConfigurationSection
+    /// <remarks>
+    /// Credits goes to everyone who has worked on NSB and Joseph Daigle/Andreas Ohlund
+    /// who created the Service Broker transport this is based off of.
+    /// </remarks>
+    public class OracleAqsTransportConfig : ConfigurationSection
     {
         /// <summary>
-        /// The queue to receive messages from in the format
+        /// Gets or sets name of the queue to receive messages from in the format
         /// "[schema].[table]".
         /// </summary>
         [ConfigurationProperty("QueueTable", IsRequired = true)]
-        public String QueueTable
+        public string QueueTable
         {
             get
             {
-                return this["QueueTable"] as String;
+                return (string)this["QueueTable"];
             }
+
             set
             {
                 this["QueueTable"] = value;
@@ -28,16 +29,17 @@ namespace NServiceBus.Config
         }
 
         /// <summary>
-        /// The queue to receive messages from in the format
+        /// Gets or sets name of the queue to receive messages from in the format
         /// "[schema].[queue]".
         /// </summary>
         [ConfigurationProperty("InputQueue", IsRequired = true)]
-        public String InputQueue
+        public string InputQueue
         {
             get
             {
-                return this["InputQueue"] as String;
+                return (string)this["InputQueue"];
             }
+
             set
             {
                 this["InputQueue"] = value;
@@ -45,12 +47,13 @@ namespace NServiceBus.Config
         }
 
         [ConfigurationProperty("ConnectionString", IsRequired = true)]
-        public String ConnectionString
+        public string ConnectionString
         {
             get
             {
-                return (String)this["ConnectionString"];
+                return (string)this["ConnectionString"];
             }
+
             set
             {
                 this["ConnectionString"] = value;

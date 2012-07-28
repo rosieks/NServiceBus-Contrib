@@ -1,17 +1,18 @@
-﻿using NServiceBus.Unicast.Transport.OracleAdvancedQueuing.Config;
-
-namespace NServiceBus
+﻿namespace NServiceBus
 {
+    using NServiceBus.Unicast.Queuing.OracleAdvancedQueuing.Config;
+
     /// <summary>
-    /// <remarks>Credits goes to everyone who has worked on NSB and Joseph Daigle/Andreas Ohlund
-    /// who created the Service Broker transport this is based off of
+    /// <remarks>
+    /// Credits goes to everyone who has worked on NSB and Joseph Daigle/Andreas Ohlund
+    /// who created the Service Broker transport this is based off of.
     /// </remarks>
     /// </summary>
-    public static class ConfigureOracleAQSTransport
+    public static class ConfigureOracleAqsTransport
     {
-        public static ConfigOracleAQSTransport OracleAQSTransport(this Configure config)
+        public static ConfigOracleAqsTransport OracleAqsTransport(this Configure config)
         {
-            var cfg = new ConfigOracleAQSTransport();
+            var cfg = new ConfigOracleAqsTransport();
             cfg.Configure(config);
 
             return cfg;
