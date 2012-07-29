@@ -1,9 +1,9 @@
 ﻿namespace NServiceBus.Unicast.Queuing.OracleAdvancedQueuing
 {
     using System;
+    using System.Collections.Generic;
     using System.Text;
     using System.Xml;
-    using System.Xml.Serialization;
     using log4net;
     using NServiceBus.Unicast.Transport;
     using Oracle.DataAccess.Client;
@@ -22,7 +22,7 @@
         private static readonly ILog Logger = LogManager.GetLogger(typeof(OracleAqsMessageReceiver));
 
         /// <summary>
-        /// Connection String to the service hosting the service broker
+        /// Gets or sets connection string to the service hosting the service broker
         /// </summary>
         public string ConnectionString { get; set; }
 
@@ -64,10 +64,11 @@
                 ProviderSpecificType = true
             };
 
-            TransportMessage transportMessage = null;
+            TransportMessage transportMessage;
 
             using (OracleConnection conn = new OracleConnection(this.ConnectionString))
             {
+                conn.Open();
                 OracleAQQueue queue = new OracleAQQueue(this.InputQueue, conn, OracleAQMessageType.Xml);
                 OracleAQMessage aqMessage = queue.Dequeue(options);
 
@@ -83,7 +84,7 @@
                 // grab the payload from the message
                 transportMessage = this.ExtractTransportMessage(aqMessage.Payload);
                 transportMessage.Id = messageGuid.ToString();
-            };
+            }
 
             Logger.DebugFormat("Received message from queue {0}", this.QueueTable);
 
@@ -118,17 +119,17 @@
         private TransportMessage ExtractTransportMessage(object payload)
         {
             OracleXmlType type = (OracleXmlType)payload;
-            TransportMessage message = null;
-
-            var xs = new XmlSerializer(typeof(TransportMessage));
-
-            message = xs.Deserialize(type.GetXmlReader()) as TransportMessage;
 
             var bodyDoc = type.GetXmlDocument();
 
             var bodySection = bodyDoc.DocumentElement.SelectSingleNode("Body").FirstChild as XmlCDataSection;
 
-            message.Body = Encoding.UTF8.GetBytes(bodySection.Data);
+            TransportMessage message = new TransportMessage
+            {
+                Body = Encoding.UTF8.GetBytes(bodySection.Data),
+                Headers = new Dictionary<string, string>(),
+                ReplyToAddress = Address.Undefined,
+            };
 
             return message;
         }

@@ -25,7 +25,7 @@ namespace ConsoleTest
 
 
 
-            //bus.Send("TEST_Q",new MockMessage { Data = "Hello World" });
+            bus.Send("TEST_Q",new MockMessage { Data = "Hello World" });
 
             Thread.Sleep(TimeSpan.FromMinutes(2));
         }

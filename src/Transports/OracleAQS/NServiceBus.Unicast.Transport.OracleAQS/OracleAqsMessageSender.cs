@@ -21,6 +21,8 @@
         {
             using (OracleConnection conn = new OracleConnection(this.ConnectionString))
             {
+                conn.Open();
+
                 // Set the time from the source machine when the message was sent
                 OracleAQQueue queue = new OracleAQQueue(address.Queue, conn, OracleAQMessageType.Xml);
                 queue.EnqueueOptions.Visibility = OracleAQVisibilityMode.OnCommit;
@@ -41,6 +43,9 @@
             var attrs = new XmlAttributes { XmlIgnore = true };
 
             overrides.Add(typeof(TransportMessage), "Messages", attrs);
+            overrides.Add(typeof(TransportMessage), "Address", attrs);
+            overrides.Add(typeof(TransportMessage), "ReplyToAddress", attrs);
+            overrides.Add(typeof(TransportMessage), "Headers", attrs);
             var xs = new XmlSerializer(typeof(TransportMessage), overrides);
 
             var doc = new XmlDocument();
