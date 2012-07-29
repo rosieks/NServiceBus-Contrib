@@ -106,6 +106,7 @@
             {
                 OracleCommand cmd = conn.CreateCommand();
                 cmd.CommandText = sql;
+                conn.Open();
                 count = Convert.ToInt32(cmd.ExecuteScalar());
             }
 

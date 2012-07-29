@@ -1,6 +1,7 @@
 ﻿namespace NServiceBus
 {
     using NServiceBus.Unicast.Queuing.OracleAdvancedQueuing.Config;
+    using NServiceBus.Unicast.Queuing.OracleAdvancedQueuing.Config.Installers;
 
     /// <summary>
     /// <remarks>
@@ -14,6 +15,8 @@
         {
             var cfg = new ConfigOracleAqsTransport();
             cfg.Configure(config);
+
+            EndpointInputQueueInstaller.Enabled = true;
 
             return cfg;
         }

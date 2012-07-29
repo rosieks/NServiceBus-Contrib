@@ -2,6 +2,7 @@
 {
     using NServiceBus.Config;
     using NServiceBus.ObjectBuilder;
+    using NServiceBus.Unicast.Queuing.OracleAdvancedQueuing.Config.Installers;
 
     /// <summary>
     /// Builds the config for the Oracle Transport.
@@ -32,34 +33,37 @@
 
             if (cfg != null)
             {
-                this.receiverConfig.ConfigureProperty(t => t.InputQueue, cfg.InputQueue);
-                this.receiverConfig.ConfigureProperty(t => t.QueueTable, cfg.QueueTable);
-                this.ConnectionString(cfg.ConnectionString);
+                this.ConnectionString(cfg.ConnectionString)
+                    .InputQueue(cfg.InputQueue)
+                    .QueueTable(cfg.QueueTable);
             }
         }
 
         public ConfigOracleAqsTransport QueueTable(string value)
         {
-            this.receiverConfig.ConfigureProperty(t => t.QueueTable, value);
+            this.receiverConfig.ConfigureProperty(r => r.QueueTable, value);
+            EndpointInputQueueInstaller.QueueTable = value;
             return this;
         }
 
         public ConfigOracleAqsTransport ConnectionString(string value)
         {
-            this.receiverConfig.ConfigureProperty(t => t.ConnectionString, value);
-            this.senderConfig.ConfigureProperty(t => t.ConnectionString, value);
+            this.receiverConfig.ConfigureProperty(r => r.ConnectionString, value);
+            this.senderConfig.ConfigureProperty(s => s.ConnectionString, value);
+            EndpointInputQueueInstaller.ConnectionString = value;
             return this;
         }
 
         public ConfigOracleAqsTransport InputQueue(string value)
         {
-            this.receiverConfig.ConfigureProperty(t => t.InputQueue, value);
+            this.receiverConfig.ConfigureProperty(r => r.InputQueue, value);
+            EndpointInputQueueInstaller.InputQueue = value;
             return this;
         }
 
         public ConfigOracleAqsTransport SecondsToWaitForMessage(int value)
         {
-            this.receiverConfig.ConfigureProperty(t => t.SecondsToWaitForMessage, value);
+            this.receiverConfig.ConfigureProperty(r => r.SecondsToWaitForMessage, value);
             return this;
         }
     }
