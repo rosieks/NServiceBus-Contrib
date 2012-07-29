@@ -39,6 +39,11 @@
             }
         }
 
+        /// <summary>
+        /// Setup name of the queue table to receive message from.
+        /// </summary>
+        /// <param name="value">Name of the queue table.</param>
+        /// <returns>Oracle AQS configuration.</returns>
         public ConfigOracleAqsTransport QueueTable(string value)
         {
             this.receiverConfig.ConfigureProperty(r => r.QueueTable, value);
@@ -46,6 +51,11 @@
             return this;
         }
 
+        /// <summary>
+        /// Setup transport connection string for the queue's database.
+        /// </summary>
+        /// <param name="value">Connection string for the queue's databes.</param>
+        /// <returns>Oracle AQS configuration.</returns>
         public ConfigOracleAqsTransport ConnectionString(string value)
         {
             this.receiverConfig.ConfigureProperty(r => r.ConnectionString, value);
@@ -54,6 +64,11 @@
             return this;
         }
 
+        /// <summary>
+        /// Setup name of the queue to receive message from.
+        /// </summary>
+        /// <param name="value">Name of the input queue.</param>
+        /// <returns>Oracle AQS configuration.</returns>
         public ConfigOracleAqsTransport InputQueue(string value)
         {
             this.receiverConfig.ConfigureProperty(r => r.InputQueue, value);

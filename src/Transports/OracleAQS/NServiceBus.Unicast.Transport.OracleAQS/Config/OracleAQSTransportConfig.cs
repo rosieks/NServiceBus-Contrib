@@ -11,7 +11,7 @@
     public class OracleAqsTransportConfig : ConfigurationSection
     {
         /// <summary>
-        /// Gets or sets name of the queue to receive messages from in the format
+        /// Gets or sets name of the queue table to receive messages from in the format
         /// "[schema].[table]".
         /// </summary>
         [ConfigurationProperty("QueueTable", IsRequired = true)]
@@ -46,6 +46,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets or sets the string used to open the connection.
+        /// </summary>
         [ConfigurationProperty("ConnectionString", IsRequired = true)]
         public string ConnectionString
         {

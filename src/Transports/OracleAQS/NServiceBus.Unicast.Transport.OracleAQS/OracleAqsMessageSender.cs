@@ -17,6 +17,11 @@
         /// </summary>
         public string ConnectionString { get; set; }
 
+        /// <summary>
+        /// /// Sends the given message to the address.
+        /// /// </summary>
+        /// /// <param name="message">Message to send.</param>
+        /// /// <param name="address">Message destination address.</param>
         public void Send(TransportMessage message, Address address)
         {
             using (OracleConnection conn = new OracleConnection(this.ConnectionString))

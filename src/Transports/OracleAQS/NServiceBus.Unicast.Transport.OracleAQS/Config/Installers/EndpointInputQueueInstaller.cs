@@ -19,14 +19,32 @@ BEGIN
   DBMS_AQADM.START_QUEUE(:queue);
 END;";
 
-        public static bool Enabled { get; set; }
+        /// <summary>
+        /// Gets or sets a value that indicates whether Oracle AQS transport should be used.
+        /// </summary>
+        internal static bool Enabled { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the string used to open the connection.
+        /// </summary>
+        internal static string ConnectionString { get; set; }
 
-        public static string ConnectionString { get; set; }
+        /// <summary>
+        /// Gets or sets name of the queue table to receive messages from in the format
+        /// "[schema].[table]".
+        /// </summary>
+        internal static string QueueTable { get; set; }
 
-        public static string QueueTable { get; set; }
+        /// <summary>
+        /// Gets or sets name of the queue to receive messages from in the format
+        /// "[schema].[queue]".
+        /// </summary>
+        internal static string InputQueue { get; set; }
 
-        public static string InputQueue { get; set; }
-
+        /// <summary>
+        /// Performs the installation providing permission for the given user.
+        /// </summary>
+        /// <param name="identity">The user for whom permissions will be given.</param>
         public void Install(WindowsIdentity identity)
         {
             if (!Enabled)
