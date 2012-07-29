@@ -4,7 +4,7 @@
     using System.Text;
     using System.Xml;
     using System.Xml.Serialization;
-    using Common.Logging;
+    using log4net;
     using NServiceBus.Unicast.Transport;
     using Oracle.DataAccess.Client;
     using Oracle.DataAccess.Types;
