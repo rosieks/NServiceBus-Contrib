@@ -1,7 +1,7 @@
 ﻿namespace NServiceBus
 {
-    using NServiceBus.Unicast.Queuing.OracleAdvancedQueuing.Config;
-    using NServiceBus.Unicast.Queuing.OracleAdvancedQueuing.Config.Installers;
+    using NServiceBus.Unicast.Queuing.OracleAqs.Config;
+    using NServiceBus.Unicast.Queuing.OracleAqs.Config.Installers;
 
     /// <summary>
     /// </summary>

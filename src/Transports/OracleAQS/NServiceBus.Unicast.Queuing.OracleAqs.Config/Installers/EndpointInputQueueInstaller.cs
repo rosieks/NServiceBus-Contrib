@@ -1,4 +1,4 @@
-﻿namespace NServiceBus.Unicast.Queuing.OracleAdvancedQueuing.Config.Installers
+﻿namespace NServiceBus.Unicast.Queuing.OracleAqs.Config.Installers
 {
     using System.Security.Principal;
     using NServiceBus.Installation;

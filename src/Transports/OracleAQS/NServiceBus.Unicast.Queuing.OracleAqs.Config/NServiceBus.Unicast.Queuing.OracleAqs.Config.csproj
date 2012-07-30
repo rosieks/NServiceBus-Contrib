@@ -1,15 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{A514EEA4-D12F-471B-8E6B-538A23CDE7FA}</ProjectGuid>
+    <ProjectGuid>{48A7B046-C7AC-4133-9C97-0478BAE09685}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NServiceBus.Unicast.Queuing.OracleAdvancedQueuing</RootNamespace>
-    <AssemblyName>NServiceBus.Unicast.Queuing.OracleAQS</AssemblyName>
+    <RootNamespace>NServiceBus.Unicast.Queuing.OracleAqs.Config</RootNamespace>
+    <AssemblyName>NServiceBus.Unicast.Queuing.OracleAqs.Config</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -34,12 +33,10 @@
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="NServiceBus, Version=3.2.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="NServiceBus">
       <HintPath>..\packages\NServiceBus.3.2.6\lib\net40\NServiceBus.dll</HintPath>
     </Reference>
-    <Reference Include="NServiceBus.Core, Version=3.2.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="NServiceBus.Core">
       <HintPath>..\packages\NServiceBus.3.2.6\lib\net40\NServiceBus.Core.dll</HintPath>
     </Reference>
     <Reference Include="Oracle.DataAccess, Version=4.112.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
@@ -47,25 +44,30 @@
       <HintPath>..\..\..\..\..\..\oraclexe\app\oracle\product\11.2.0\server\odp.net\bin\4\Oracle.DataAccess.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config\ConfigOracleAqsTransport.cs" />
-    <Compile Include="Config\ConfigureOracleAqsTransport.cs" />
-    <Compile Include="Config\Installers\EndpointInputQueueInstaller.cs" />
-    <Compile Include="Config\OracleAqsTransportConfig.cs" />
-    <Compile Include="OracleAqsMessageReceiver.cs" />
-    <Compile Include="OracleAqsMessageSender.cs" />
+    <Compile Include="ConfigOracleAqsTransport.cs" />
+    <Compile Include="ConfigureOracleAqsTransport.cs" />
+    <Compile Include="Installers\EndpointInputQueueInstaller.cs" />
+    <Compile Include="OracleAqsTransportConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NServiceBus.Unicast.Queuing.OracleAqs\NServiceBus.Unicast.Queuing.OracleAqs.csproj">
+      <Project>{a514eea4-d12f-471b-8e6b-538a23cde7fa}</Project>
+      <Name>NServiceBus.Unicast.Queuing.OracleAqs</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

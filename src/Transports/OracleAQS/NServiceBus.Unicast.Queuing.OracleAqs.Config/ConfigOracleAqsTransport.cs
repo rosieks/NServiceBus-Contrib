@@ -1,8 +1,9 @@
-﻿namespace NServiceBus.Unicast.Queuing.OracleAdvancedQueuing.Config
+﻿namespace NServiceBus.Unicast.Queuing.OracleAqs.Config
 {
     using NServiceBus.Config;
     using NServiceBus.ObjectBuilder;
-    using NServiceBus.Unicast.Queuing.OracleAdvancedQueuing.Config.Installers;
+    using NServiceBus.Unicast.Queuing.OracleAqs;
+    using NServiceBus.Unicast.Queuing.OracleAqs.Config.Installers;
 
     /// <summary>
     /// Builds the config for the Oracle Transport.

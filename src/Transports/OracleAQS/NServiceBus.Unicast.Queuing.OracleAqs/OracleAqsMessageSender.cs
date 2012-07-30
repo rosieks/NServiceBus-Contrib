@@ -1,4 +1,4 @@
-﻿namespace NServiceBus.Unicast.Queuing.OracleAdvancedQueuing
+﻿namespace NServiceBus.Unicast.Queuing.OracleAqs
 {
     using System.IO;
     using System.Text;
