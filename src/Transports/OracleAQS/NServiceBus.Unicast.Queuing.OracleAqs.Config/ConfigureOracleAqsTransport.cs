@@ -25,5 +25,16 @@
 
             return cfg;
         }
+
+        /// <summary>
+        /// Use Oracle AQS for your queuing infrastruture.
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="connectionString">Connection string for the queue's database.</param>
+        /// <returns>Oracle AQS configuration.</returns>
+        public static ConfigOracleAqsTransport OracleAqsTransport(this Configure config, string connectionString)
+        {
+            return config.OracleAqsTransport().ConnectionString(connectionString);
+        }
     }
 }

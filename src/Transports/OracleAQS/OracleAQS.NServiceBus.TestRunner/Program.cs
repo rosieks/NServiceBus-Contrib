@@ -15,15 +15,10 @@ namespace ConsoleTest
                 .UnicastBus()
                     .DoNotAutoSubscribe()
                     .LoadMessageHandlers()
-                .OracleAqsTransport()
-                    .InputQueue("TEST_Q")
-                    .QueueTable("TEST_Q_TAB")
-                    .ConnectionString("Data Source=localhost;Persist Security Info=True;User ID=slawek;Password=sasa")
+                .OracleAqsTransport("Data Source=localhost;Persist Security Info=True;User ID=slawek;Password=sasa")
                 .CreateBus()
                 .Start(() => Configure.Instance
                     .ForInstallationOn<NServiceBus.Installation.Environments.Windows>().Install());
-
-
 
             bus.Send("TEST_Q",new MockMessage { Data = "Hello World" });
 

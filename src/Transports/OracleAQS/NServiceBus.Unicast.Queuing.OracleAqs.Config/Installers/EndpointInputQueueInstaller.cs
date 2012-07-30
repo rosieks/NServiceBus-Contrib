@@ -20,7 +20,7 @@ BEGIN
 END;";
 
         /// <summary>
-        /// Gets or sets a value that indicates whether Oracle AQS transport should be used.
+        /// Gets or sets a value indicating whether Oracle AQS transport should be used.
         /// </summary>
         internal static bool Enabled { get; set; }
         
@@ -28,18 +28,6 @@ END;";
         /// Gets or sets the string used to open the connection.
         /// </summary>
         internal static string ConnectionString { get; set; }
-
-        /// <summary>
-        /// Gets or sets name of the queue table to receive messages from in the format
-        /// "[schema].[table]".
-        /// </summary>
-        internal static string QueueTable { get; set; }
-
-        /// <summary>
-        /// Gets or sets name of the queue to receive messages from in the format
-        /// "[schema].[queue]".
-        /// </summary>
-        internal static string InputQueue { get; set; }
 
         /// <summary>
         /// Performs the installation providing permission for the given user.
@@ -52,12 +40,17 @@ END;";
                 return;
             }
 
-            using (OracleConnection connection = new OracleConnection(ConnectionString))
+            CreateQueueIfNecessary(Address.Local.Queue, ConnectionString);
+        }
+
+        private static void CreateQueueIfNecessary(string name, string connectionString)
+        {
+            using (OracleConnection connection = new OracleConnection(connectionString))
             {
                 OracleCommand cmd = connection.CreateCommand();
                 cmd.CommandText = InstallSql;
-                cmd.Parameters.Add("queue", InputQueue);
-                cmd.Parameters.Add("queueTable", QueueTable);
+                cmd.Parameters.Add("queue", name.ToUpper());
+                cmd.Parameters.Add("queueTable", (name + "_tab").ToUpper());
                 connection.Open();
                 cmd.ExecuteNonQuery();
             }
