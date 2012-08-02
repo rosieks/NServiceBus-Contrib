@@ -56,7 +56,9 @@
   <ItemGroup>
     <Compile Include="OracleAqsMessageReceiver.cs" />
     <Compile Include="OracleAqsMessageSender.cs" />
+    <Compile Include="OracleAqsUtilities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SerializableDictionary.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

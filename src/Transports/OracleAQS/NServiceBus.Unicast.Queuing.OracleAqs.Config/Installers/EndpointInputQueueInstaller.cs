@@ -2,23 +2,9 @@
 {
     using System.Security.Principal;
     using NServiceBus.Installation;
-    using Oracle.DataAccess.Client;
 
     public class EndpointInputQueueInstaller : INeedToInstallSomething<Installation.Environments.Windows>
     {
-        private const string InstallSql = @"DECLARE
-  cnt NUMBER;
-BEGIN
-  SELECT count(*) INTO cnt FROM dba_queues WHERE name = :queue AND queue_table = :queueTable;
-  
-  IF cnt = 0 THEN
-    DBMS_AQADM.CREATE_QUEUE_TABLE (:queueTable, 'SYS.XMLType');
-    DBMS_AQADM.CREATE_QUEUE (:queue, :queueTable);
-  END IF;
-  
-  DBMS_AQADM.START_QUEUE(:queue);
-END;";
-
         /// <summary>
         /// Gets or sets a value indicating whether Oracle AQS transport should be used.
         /// </summary>
@@ -40,20 +26,8 @@ END;";
                 return;
             }
 
-            CreateQueueIfNecessary(Address.Local.Queue, ConnectionString);
-        }
-
-        private static void CreateQueueIfNecessary(string name, string connectionString)
-        {
-            using (OracleConnection connection = new OracleConnection(connectionString))
-            {
-                OracleCommand cmd = connection.CreateCommand();
-                cmd.CommandText = InstallSql;
-                cmd.Parameters.Add("queue", name.ToUpper());
-                cmd.Parameters.Add("queueTable", (name + "_tab").ToUpper());
-                connection.Open();
-                cmd.ExecuteNonQuery();
-            }
+            OracleAqsUtilities.CreateQueueIfNecessary(Address.Local, ConnectionString);
+            OracleAqsUtilities.CreateQueueIfNecessary(Configure.Instance.GetTimeoutManagerAddress(), ConnectionString);
         }
     }
 }

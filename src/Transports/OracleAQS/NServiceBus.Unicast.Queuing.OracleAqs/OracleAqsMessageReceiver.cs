@@ -1,7 +1,6 @@
 ﻿namespace NServiceBus.Unicast.Queuing.OracleAqs
 {
     using System;
-    using System.Collections.Generic;
     using System.Text;
     using System.Xml;
     using log4net;
@@ -86,7 +85,18 @@
             {
                 conn.Open();
                 OracleAQQueue queue = new OracleAQQueue(this.inputQueueAddress.Queue, conn, OracleAQMessageType.Xml);
-                OracleAQMessage aqMessage = queue.Dequeue(options);
+                OracleAQMessage aqMessage = null;
+                try
+                {
+                    aqMessage = queue.Dequeue(options);
+                }
+                catch (OracleException ex)
+                {
+                    if (ex.Number != 25228)
+                    {
+                        throw;
+                    }
+                }
 
                 // No message? That's okay
                 if (null == aqMessage)
@@ -127,7 +137,10 @@
                 count = Convert.ToInt32(cmd.ExecuteScalar());
             }
 
-            Logger.DebugFormat("There are {0} messages in queue {1}", count, this.inputQueueAddress.Queue);
+            if (count > 0)
+            {
+                Logger.DebugFormat("There are {0} messages in queue {1}", count, this.inputQueueAddress.Queue);
+            }
 
             return count;
         }
@@ -140,10 +153,17 @@
 
             var bodySection = bodyDoc.DocumentElement.SelectSingleNode("Body").FirstChild as XmlCDataSection;
 
+            var headerSection = bodyDoc.DocumentElement.SelectSingleNode("Headers");
+            var headerDictionary = new SerializableDictionary<string, string>();
+            if (headerSection != null)
+            {
+                headerDictionary.SetXml(headerSection.InnerXml);
+            }
+
             TransportMessage message = new TransportMessage
             {
                 Body = Encoding.UTF8.GetBytes(bodySection.Data),
-                Headers = new Dictionary<string, string>(),
+                Headers = headerDictionary,
                 ReplyToAddress = Address.Undefined,
             };
 

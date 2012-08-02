@@ -29,7 +29,7 @@
                 conn.Open();
 
                 // Set the time from the source machine when the message was sent
-                OracleAQQueue queue = new OracleAQQueue(address.Queue, conn, OracleAQMessageType.Xml);
+                OracleAQQueue queue = new OracleAQQueue(OracleAqsUtilities.NormalizeQueueName(address), conn, OracleAQMessageType.Xml);
                 queue.EnqueueOptions.Visibility = OracleAQVisibilityMode.Immediate;
 
                 using (var stream = new MemoryStream())
@@ -69,6 +69,12 @@
             var bodyElement = doc.CreateElement("Body");
             bodyElement.AppendChild(doc.CreateCDataSection(data));
             doc.DocumentElement.AppendChild(bodyElement);
+
+            var headers = new SerializableDictionary<string, string>(transportMessage.Headers);
+
+            var headerElement = doc.CreateElement("Headers");
+            headerElement.InnerXml = headers.GetXml();
+            doc.DocumentElement.AppendChild(headerElement);
 
             doc.Save(stream);
             stream.Position = 0;
