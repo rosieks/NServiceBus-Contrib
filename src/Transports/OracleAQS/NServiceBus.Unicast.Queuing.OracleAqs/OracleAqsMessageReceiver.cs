@@ -20,7 +20,7 @@
     {
         private static readonly ILog Logger = LogManager.GetLogger(typeof(OracleAqsMessageReceiver));
 
-        private Address inputQueueAddress;
+        private string inputQueueAddress;
         private string queueTable;
 
         /// <summary>
@@ -58,13 +58,13 @@
         /// <param name="transactional">Indicates if the receiver should be transactional.</param>
         public void Init(Address address, bool transactional)
         {
-            this.inputQueueAddress = address;
+            this.inputQueueAddress = OracleAqsUtilities.NormalizeQueueName(address);
 
             using (OracleConnection conn = new OracleConnection(this.ConnectionString))
             {
                 OracleCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "SELECT queue_table FROM dba_queues WHERE name = :queue";
-                cmd.Parameters.Add("queue", address.Queue.ToUpper());
+                cmd.Parameters.Add("queue", this.inputQueueAddress);
                 conn.Open();
                 this.queueTable = cmd.ExecuteScalar() as string;
             }
@@ -84,7 +84,7 @@
             using (OracleConnection conn = new OracleConnection(this.ConnectionString))
             {
                 conn.Open();
-                OracleAQQueue queue = new OracleAQQueue(this.inputQueueAddress.Queue, conn, OracleAQMessageType.Xml);
+                OracleAQQueue queue = new OracleAQQueue(this.inputQueueAddress, conn, OracleAQMessageType.Xml);
                 OracleAQMessage aqMessage = null;
                 try
                 {
@@ -112,7 +112,7 @@
                 transportMessage.Id = messageGuid.ToString();
             }
 
-            Logger.DebugFormat("Received message from queue {0}", this.inputQueueAddress.Queue);
+            Logger.DebugFormat("Received message from queue {0}", this.inputQueueAddress);
 
             // Set the correlation Id
             if (string.IsNullOrEmpty(transportMessage.IdForCorrelation))
@@ -139,7 +139,7 @@
 
             if (count > 0)
             {
-                Logger.DebugFormat("There are {0} messages in queue {1}", count, this.inputQueueAddress.Queue);
+                Logger.DebugFormat("There are {0} messages in queue {1}", count, this.inputQueueAddress);
             }
 
             return count;
@@ -160,11 +160,18 @@
                 headerDictionary.SetXml(headerSection.InnerXml);
             }
 
+            var replyToAddressSection = bodyDoc.DocumentElement.SelectSingleNode("ReplyToAddress");
+            Address replyToAddress = Address.Undefined;
+            if (replyToAddressSection != null)
+            {
+                replyToAddress = Address.Parse(replyToAddressSection.InnerText);
+            }
+
             TransportMessage message = new TransportMessage
             {
                 Body = Encoding.UTF8.GetBytes(bodySection.Data),
                 Headers = headerDictionary,
-                ReplyToAddress = Address.Undefined,
+                ReplyToAddress = replyToAddress,
             };
 
             return message;

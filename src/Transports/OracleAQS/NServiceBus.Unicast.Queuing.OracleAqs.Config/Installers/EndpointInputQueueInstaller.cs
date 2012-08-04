@@ -27,7 +27,16 @@
             }
 
             OracleAqsUtilities.CreateQueueIfNecessary(Address.Local, ConnectionString);
-            OracleAqsUtilities.CreateQueueIfNecessary(Configure.Instance.GetTimeoutManagerAddress(), ConnectionString);
+
+            if (ConfigureTimeoutManager.TimeoutManagerAddress != null && Configure.Instance.IsTimeoutManagerEnabled())
+            {
+                OracleAqsUtilities.CreateQueueIfNecessary(Configure.Instance.GetTimeoutManagerAddress(), ConnectionString);
+            }
+
+            if (ConfigureFaultsForwarder.ErrorQueue != null)
+            {
+                OracleAqsUtilities.CreateQueueIfNecessary(ConfigureFaultsForwarder.ErrorQueue, ConnectionString);
+            }
         }
     }
 }

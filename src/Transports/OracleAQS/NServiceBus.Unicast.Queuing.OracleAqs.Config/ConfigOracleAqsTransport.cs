@@ -2,6 +2,7 @@
 {
     using NServiceBus.Config;
     using NServiceBus.ObjectBuilder;
+    using NServiceBus.Timeout.Hosting.Windows;
     using NServiceBus.Unicast.Queuing.OracleAqs;
     using NServiceBus.Unicast.Queuing.OracleAqs.Config.Installers;
 
@@ -36,6 +37,11 @@
             {
                 this.ConnectionString(cfg.ConnectionString);
             }
+
+            TimeoutMessageProcessor.MessageReceiverFactory = () => new OracleAqsMessageReceiver
+            {
+                ConnectionString = EndpointInputQueueInstaller.ConnectionString
+            };
         }
 
         /// <summary>

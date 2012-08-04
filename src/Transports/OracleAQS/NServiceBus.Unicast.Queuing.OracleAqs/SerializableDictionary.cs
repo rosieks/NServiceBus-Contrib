@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using System.Xml;
-using System.Xml.Serialization;
-
-namespace NServiceBus.Unicast.Queuing.OracleAqs
+﻿namespace NServiceBus.Unicast.Queuing.OracleAqs
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Text;
+    using System.Xml;
+    using System.Xml.Serialization;
+
     [XmlRoot("dictionary")]
     internal class SerializableDictionary<TKey, TValue>
         : Dictionary<TKey, TValue>, IXmlSerializable
@@ -33,7 +33,9 @@ namespace NServiceBus.Unicast.Queuing.OracleAqs
             reader.Read();
 
             if (wasEmpty)
+            {
                 return;
+            }
 
             while (reader.NodeType != System.Xml.XmlNodeType.EndElement && reader.NodeType != XmlNodeType.None)
             {

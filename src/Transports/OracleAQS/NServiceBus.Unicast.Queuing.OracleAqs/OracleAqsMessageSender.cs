@@ -64,7 +64,7 @@
                 doc.Load(tempstream);
             }
 
-            var data = Encoding.UTF8.GetString(transportMessage.Body);
+            var data = transportMessage.Body != null ? Encoding.UTF8.GetString(transportMessage.Body) : string.Empty;
 
             var bodyElement = doc.CreateElement("Body");
             bodyElement.AppendChild(doc.CreateCDataSection(data));
@@ -75,6 +75,10 @@
             var headerElement = doc.CreateElement("Headers");
             headerElement.InnerXml = headers.GetXml();
             doc.DocumentElement.AppendChild(headerElement);
+
+            var replyToAddressElement = doc.CreateElement("ReplyToAddress");
+            replyToAddressElement.InnerText = transportMessage.ReplyToAddress.ToString();
+            doc.DocumentElement.AppendChild(replyToAddressElement);
 
             doc.Save(stream);
             stream.Position = 0;
