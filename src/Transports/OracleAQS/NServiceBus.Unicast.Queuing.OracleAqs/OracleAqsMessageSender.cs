@@ -2,6 +2,7 @@
 {
     using System.IO;
     using System.Text;
+    using System.Transactions;
     using System.Xml;
     using System.Xml.Serialization;
     using NServiceBus.Unicast.Transport;
@@ -30,7 +31,7 @@
 
                 // Set the time from the source machine when the message was sent
                 OracleAQQueue queue = new OracleAQQueue(OracleAqsUtilities.NormalizeQueueName(address), conn, OracleAQMessageType.Xml);
-                queue.EnqueueOptions.Visibility = OracleAQVisibilityMode.Immediate;
+                queue.EnqueueOptions.Visibility = Transaction.Current == null ? OracleAQVisibilityMode.Immediate : OracleAQVisibilityMode.OnCommit;
 
                 using (var stream = new MemoryStream())
                 {
