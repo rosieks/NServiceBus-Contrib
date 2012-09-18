@@ -23,6 +23,11 @@
         private string inputQueueAddress;
         private string queueTable;
 
+        public OracleAqsMessageReceiver()
+        {
+            this.SecondsToWaitForMessage = 1;
+        }
+
         /// <summary>
         /// Gets or sets connection string to the service hosting the service broker
         /// </summary>
@@ -39,7 +44,7 @@
         /// <returns></returns>
         public bool HasMessage()
         {
-            return this.GetNumberOfPendingMessages() > 0;
+            return true;
         }
 
         /// <summary>
@@ -76,7 +81,7 @@
             {
                 DequeueMode = OracleAQDequeueMode.Remove,
                 Wait = this.SecondsToWaitForMessage,
-                ProviderSpecificType = true
+                ProviderSpecificType = true,
             };
 
             TransportMessage transportMessage;
@@ -110,6 +115,7 @@
                 // grab the payload from the message
                 transportMessage = this.ExtractTransportMessage(aqMessage.Payload);
                 transportMessage.Id = messageGuid.ToString();
+                transportMessage.IdForCorrelation = aqMessage.Correlation;
             }
 
             Logger.DebugFormat("Received message from queue {0}", this.inputQueueAddress);
@@ -121,28 +127,6 @@
             }
 
             return transportMessage;
-        }
-
-        private int GetNumberOfPendingMessages()
-        {
-            int count;
-
-            string sql = string.Format(@"SELECT COUNT(*) FROM {0}", this.queueTable);
-
-            using (OracleConnection conn = new OracleConnection(this.ConnectionString))
-            {
-                OracleCommand cmd = conn.CreateCommand();
-                cmd.CommandText = sql;
-                conn.Open();
-                count = Convert.ToInt32(cmd.ExecuteScalar());
-            }
-
-            if (count > 0)
-            {
-                Logger.DebugFormat("There are {0} messages in queue {1}", count, this.inputQueueAddress);
-            }
-
-            return count;
         }
 
         private TransportMessage ExtractTransportMessage(object payload)
