@@ -137,18 +137,25 @@
 
             var bodySection = bodyDoc.DocumentElement.SelectSingleNode("Body").FirstChild as XmlCDataSection;
 
-            var headerSection = bodyDoc.DocumentElement.SelectSingleNode("Headers");
             var headerDictionary = new SerializableDictionary<string, string>();
+            var headerSection = bodyDoc.DocumentElement.SelectSingleNode("Headers");
             if (headerSection != null)
             {
                 headerDictionary.SetXml(headerSection.InnerXml);
             }
 
-            var replyToAddressSection = bodyDoc.DocumentElement.SelectSingleNode("ReplyToAddress");
             Address replyToAddress = Address.Undefined;
+            var replyToAddressSection = bodyDoc.DocumentElement.SelectSingleNode("ReplyToAddress");
             if (replyToAddressSection != null)
             {
                 replyToAddress = Address.Parse(replyToAddressSection.InnerText);
+            }
+
+            MessageIntentEnum messageIntent = default(MessageIntentEnum);
+            var messageIntentSection = bodyDoc.DocumentElement.SelectSingleNode("MessageIntent");
+            if (messageIntentSection != null)
+            {
+                messageIntent = (MessageIntentEnum)Enum.Parse(typeof(MessageIntentEnum), messageIntentSection.InnerText);
             }
 
             TransportMessage message = new TransportMessage
@@ -156,6 +163,7 @@
                 Body = Encoding.UTF8.GetBytes(bodySection.Data),
                 Headers = headerDictionary,
                 ReplyToAddress = replyToAddress,
+                MessageIntent = messageIntent,
             };
 
             return message;
