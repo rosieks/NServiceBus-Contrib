@@ -54,6 +54,7 @@
             this.receiverConfig.ConfigureProperty(r => r.ConnectionString, value);
             this.senderConfig.ConfigureProperty(s => s.ConnectionString, value);
             EndpointInputQueueInstaller.ConnectionString = value;
+            OracleSatelliteLauncherConfiguration.ConnectionString = value;
             return this;
         }
 

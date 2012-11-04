@@ -57,6 +57,7 @@
     <Compile Include="ConfigureOracleAqsTransport.cs" />
     <Compile Include="Installers\EndpointInputQueueInstaller.cs" />
     <Compile Include="OracleAqsTransportConfig.cs" />
+    <Compile Include="OracleSatelliteLauncherConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
